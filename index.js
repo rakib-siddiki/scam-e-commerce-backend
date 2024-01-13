@@ -4,10 +4,7 @@ const dbConnect = require("./config/dbConnect");
 const appRouter = require("./appRouter");
 
 const app = express();
+const port = 3000;
 dbConnect()
 app.use(appRouter);
-const port = 3000;
-app.use(express.json());
-app.listen(port, console.log("okey"));
-
-
+app.listen(port);
