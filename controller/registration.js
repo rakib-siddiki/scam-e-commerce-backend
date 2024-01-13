@@ -14,18 +14,8 @@ const registrationController = async (req, res) => {
       address,
       postCode,
     } = await req.body;
-    const validate = validateRegistration(
-      res,
-      firstName,
-      lastName,
-      email,
-      telephone,
-      password,
-      city,
-      address,
-      postCode
-    );
-    if (validate) return;
+    const ifNotValidate = validateRegistration(res, req.body);
+    if (ifNotValidate) return;
     const hashPassword = await bcrypt.hash(password, 10);
     const user = new User({
       firstName,
@@ -37,7 +27,6 @@ const registrationController = async (req, res) => {
       address,
       postCode,
     });
-    
     sendMail(email);
     user.save();
   } catch (error) {

@@ -1,14 +1,7 @@
 const validateRegistration = (
-  res,
-  firstName,
-  lastName,
-  email,
-  telephone,
-  password,
-  city,
-  address,
-  postCode
+  res,{...inputs}
 ) => {
+  const { firstName, lastName, email, telephone, password, city, address, postCode } = inputs;
   if (!firstName || !lastName)
     return res
       .status(400)
