@@ -1,13 +1,23 @@
-const validateRegistration = (
-  res,{...inputs}
-) => {
-  const { firstName, lastName, email, telephone, password, city, address, postCode } = inputs;
+const emailValidation = require("./emailValidation");
+
+const registrationValidation = (res, { ...inputs }) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    telephone,
+    password,
+    city,
+    address,
+    postCode,
+  } = inputs;
   if (!firstName || !lastName)
     return res
       .status(400)
       .send({ message: "First Name and Last Name are required" });
   if (!email)
     return res.status(400).send({ message: "Please enter your email" });
+ if(!emailValidation(email)) return res.status(400).send({ message: "Please enter a valid email" });
   if (!telephone)
     return res.status(400).send({ message: "Please enter your phone number" });
   if (!password)
@@ -19,4 +29,4 @@ const validateRegistration = (
     return res.status(400).send({ message: "Please enter your post code" });
 };
 
-module.exports = validateRegistration;
+module.exports = registrationValidation;

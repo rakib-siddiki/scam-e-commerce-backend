@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const userSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
@@ -30,8 +29,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     recuired: true,
   },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
+  token: { type: String },
+  verify: { type: Boolean, default: false },
 });
 
 const User = mongoose.models.users || mongoose.model("User", userSchema);
 
-module.exports = User
+module.exports = User;
