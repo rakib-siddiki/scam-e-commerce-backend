@@ -1,3 +1,4 @@
+const passwordValidation = require("./passwordValidation");
 const emailValidation = require("./tokenUtils/emailValidation");
 
 const registrationValidation = (res, { ...inputs }) => {
@@ -11,6 +12,7 @@ const registrationValidation = (res, { ...inputs }) => {
     address,
     postCode,
   } = inputs;
+  const strongPassword = passwordValidation(password);
   if (!firstName || !lastName)
     return res
       .status(400)
@@ -23,6 +25,8 @@ const registrationValidation = (res, { ...inputs }) => {
     return res.status(400).send({ message: "Please enter your phone number" });
   if (!password)
     return res.status(400).send({ message: "Please enter your password" });
+  if (!strongPassword.valid)
+    return res.status(400).send({ message: strongPassword.error[0] });
   if (!city) return res.status(400).send({ message: "Please enter your city" });
   if (!address)
     return res.status(400).send({ message: "Please enter your address" });
