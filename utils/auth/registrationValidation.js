@@ -1,4 +1,4 @@
-const emailValidation = require("./emailValidation");
+const emailValidation = require("./tokenUtils/emailValidation");
 
 const registrationValidation = (res, { ...inputs }) => {
   const {
@@ -17,7 +17,8 @@ const registrationValidation = (res, { ...inputs }) => {
       .send({ message: "First Name and Last Name are required" });
   if (!email)
     return res.status(400).send({ message: "Please enter your email" });
- if(!emailValidation(email)) return res.status(400).send({ message: "Please enter a valid email" });
+  if (!emailValidation(email))
+    return res.status(400).send({ message: "Please enter a valid email" });
   if (!telephone)
     return res.status(400).send({ message: "Please enter your phone number" });
   if (!password)

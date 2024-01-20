@@ -1,10 +1,7 @@
 const User = require("../models/userSchema.js");
 const registrationValidation = require("../utils/auth/registrationValidation.js");
 const bcrypt = require("bcrypt");
-const sendMail = require("../utils/auth/sendMail.js");
-const jwt = require("jsonwebtoken");
-const emailTokenTemplate = require("../utils/auth/emailTokenTemplate.js");
-const connectTokenToDb = require("../utils/auth/connectTokenToDb.js");
+const sendToken = require("../utils/auth/sendToken.js");
 const registrationController = async (req, res) => {
   try {
     const { email, password } = await req.body;
@@ -17,11 +14,7 @@ const registrationController = async (req, res) => {
         .send({ message: "User with this email already exists" });
     const hashPassword = await bcrypt.hash(password, 10);
     const user = new User({ ...req.body, password: hashPassword }).save();
-    const token = jwt.sign({ email }, process.env.AUTH_JWT_SECRET, {
-      expiresIn: Math.floor(Date.now() / 1000) + 60 * 60,
-    });
-    sendMail(email, emailTokenTemplate(token));
-    connectTokenToDb(email, token);
+    sendToken(email)
     res.send({ message: "Registration Successful" });
   } catch (error) {
     console.log("error", error);
