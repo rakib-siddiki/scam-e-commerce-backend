@@ -9,7 +9,9 @@ const categoryStatusController = async (req, res) => {
         }else if(status === "approved"){
             await categorySchema.updateOne({ name }, { $set: { isActve: true,status } });
         }
-        res.send({ message: "category status updated successfully" });
+        res.send({
+          message: `${name} category status updated successfully`,
+        });
     } catch (error) {
         console.log("error", error.message);
     }

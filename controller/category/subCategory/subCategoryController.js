@@ -1,3 +1,4 @@
+const categoryScema = require("../../../models/categoryScema.js");
 const subCategorySchema = require("../../../models/subCetegoryScema.js");
 const subCategoryController = async (req, res) => {
   try {
@@ -5,9 +6,15 @@ const subCategoryController = async (req, res) => {
     const exsistingCategory = await subCategorySchema.findOne({ name });
     if (exsistingCategory)
       return res.status(400).send({ message: "this category already exist" });
-    const newCategory = new categorySchema({ ...req.body });
+    const newCategory = new subCategorySchema({ ...req.body });
     await newCategory.save();
-    res.send({ message: "category created successfully" });
+    // push the new category to the category
+    await categoryScema.findOneAndUpdate(
+      { _id: newCategory.categoryId },
+      { $push: { subCategory: newCategory._id } },
+      { new: true }
+    );
+    res.send({ message: `sub category ${name} created successfully` });
   } catch (error) {
     console.log("error", error.message);
   }

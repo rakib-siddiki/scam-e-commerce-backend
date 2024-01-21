@@ -21,9 +21,9 @@ const subCategorySchema = new mongoose.Schema({
     enum: ["waiting", "approved", "rejected"],
     default: "waiting",
   },
-  CategoryId: {
+  categoryId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "categorySchema",
+    ref: "Category",
   },
   createdAt: {
     type: Date,
@@ -35,4 +35,4 @@ const subCategorySchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("subCategoryList", subCategorySchema);
+module.exports = mongoose.model("Subcategory", subCategorySchema);
