@@ -1,7 +1,9 @@
-const User = require("../models/userSchema.js");
-const sendMail = require("../utils/auth/sendMail.js");
-const emailTokenTemplate = require("../utils/auth/tokenUtils/emailTokenTemplate.js");
+
+
 const jwt = require("jsonwebtoken");
+const User = require("../../models/userSchema");
+const sendMail = require("../../utils/auth/sendMail");
+const emailTokenTemplate = require("../../utils/auth/tokenUtils/emailTokenTemplate");
 const renewTokenController = async (req, res) => {
   try {
     const { email } = req.body;

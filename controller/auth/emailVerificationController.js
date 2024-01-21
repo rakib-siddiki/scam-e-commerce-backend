@@ -1,4 +1,4 @@
-const User = require("../models/userSchema.js");
+const User = require("../../models/userSchema");
 const emailVerificationController = async (req, res) => {
   try {
     const { token } = await req.query;
