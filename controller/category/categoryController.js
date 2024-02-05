@@ -1,7 +1,7 @@
-const categorySchema = require("../../models/categoryScema.js");
+const categorySchema = require("../../models/categorySchema.js");
 const categoryController = async (req, res) => {
   try {
-    const { name} = req.body;
+    const { name } = req.body;
     const exsistingCategory = await categorySchema.findOne({ name });
     if (exsistingCategory)
       return res.status(400).send({ message: "this category already exist" });

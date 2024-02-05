@@ -3,9 +3,11 @@ const registrationController = require("../../controller/auth/registrationContro
 const emailVerificationController = require("../../controller/auth/emailVerificationController.js");
 const renewTokenController = require("../../controller/auth/renewTokenController.js");
 const loginController = require("../../controller/auth/loginController.js");
+const becomeMerchantController = require("../../controller/auth/becomeMerchantController.js");
 const _ = express.Router();
 _.post("/registration", registrationController);
 _.get("/verify", emailVerificationController);
 _.put("/renew-token", renewTokenController);
 _.post("/login", loginController);
+_.post("/becomeMerchant", becomeMerchantController);
 module.exports = _;

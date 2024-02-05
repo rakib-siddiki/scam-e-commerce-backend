@@ -1,5 +1,5 @@
-const categoryScema = require("../../../models/categoryScema.js");
-const subCategorySchema = require("../../../models/subCetegoryScema.js");
+const categorySchema = require("../../../models/categorySchema.js");
+const subCategorySchema = require("../../../models/subCetegorySchema.js");
 const subCategoryController = async (req, res) => {
   try {
     const { name } = req.body;
@@ -9,7 +9,7 @@ const subCategoryController = async (req, res) => {
     const newCategory = new subCategorySchema({ ...req.body });
     await newCategory.save();
     // push the new category to the category
-    await categoryScema.findOneAndUpdate(
+    await categorySchema.findOneAndUpdate(
       { _id: newCategory.categoryId },
       { $push: { subCategory: newCategory._id } },
       { new: true }

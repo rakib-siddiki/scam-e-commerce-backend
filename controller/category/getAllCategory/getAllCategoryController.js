@@ -1,14 +1,12 @@
-const categoryScema = require("../../../models/categoryScema");
+const categorySchema = require("../../../models/categorySchema");
 
-const getAllCategoryController = async(req,res)=>{
-try {
-
-    const allCategory = await categoryScema.find({}).populate("subCategory")
-    res.send(allCategory)
-    
-} catch (error) {
+const getAllCategoryController = async (req, res) => {
+  try {
+    const allCategory = await categorySchema.find({}).populate("subCategory");
+    res.send(allCategory);
+  } catch (error) {
     console.log("error", error);
-}
-}
+  }
+};
 
 module.exports = getAllCategoryController;

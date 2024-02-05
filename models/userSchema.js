@@ -29,6 +29,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     recuired: true,
   },
+  role: {
+    type: String,
+    default: "guest",
+    enum: ["admin", "mamber", "guest", "merchant"],
+  },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   token: { type: String },
