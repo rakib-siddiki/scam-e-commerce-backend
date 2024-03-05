@@ -32,6 +32,14 @@ const MerchantSchema = new mongoose.Schema({
       ref: "Product",
     },
   ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Merchant =mongoose.models.merchants || mongoose.model("Merchant", MerchantSchema);

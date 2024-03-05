@@ -1,17 +1,24 @@
 const mongoose = require("mongoose");
 
 const varientSchema = new mongoose.Schema({
-  name: {
+  ram: {
     type: String,
-    required: true,
+  },
+  storage: {
+    type: String,
+  },
+  color: {
+    type: String,
+  },
+  size: {
+    type: String,
   },
   price: {
-    type: Number,
+    type: String,
     required: true,
   },
   image: {
     type: String,
-    required: true,
   },
   isActve: {
     type: Boolean,
@@ -21,12 +28,6 @@ const varientSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
   },
-  options: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Option",
-    },
-  ],
   createdAt: {
     type: Date,
     default: Date.now,
