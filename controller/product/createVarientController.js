@@ -2,10 +2,11 @@ const { isValidObjectId } = require("mongoose");
 const productSchema = require("../../models/productSchema");
 const VarientSchema = require("../../models/varientSchema");
 const uploadWithCloudinary = require("../../utils/cloudinary/cloudinary");
+const fs = require("fs");
 const createVarientController = async (req, res) => {
   try {
     const localPath = req.file.path;
-    const {url} = await uploadWithCloudinary(localPath)
+    
     const { productId,ram,storage,color,size,image } = req.body;
     if (!productId)
       return res.status(400).send({ message: "All input are must be field" });
@@ -18,7 +19,11 @@ const createVarientController = async (req, res) => {
       color,
       size,
     });
-    if (existingVarient) return res.status(400).send({ message: "Variant already exists" });
+    if (existingVarient) {
+      fs.unlinkSync(localPath);
+      return res.status(400).send({ message: "Variant already exists" });
+    }
+    const { url } = await uploadWithCloudinary(localPath);
     const newVarient = new VarientSchema({...req.body,image:url });
     await newVarient.save();
     await productSchema.updateOne(
